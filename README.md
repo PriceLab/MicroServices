@@ -6,7 +6,14 @@ in which each of the component parts each perform a single, well-defined task.
 
 Current contents include:
 
- * [getDNAService](https://github.com/PriceLab/getDNAService)
- * [fimoService](https://github.com/PriceLab/fimoService)
+ * [getDNAService](https://github.com/PriceLab/getDNAService): currently a lightweight wrapper around a
+    UCSC DAS server.  Reference sequence for the specified genome, and chromosomal location returned,
+    reverse-complemented if requested.
+
+ * [fimoService](https://github.com/PriceLab/fimoService): Invoke the [MEME Suite's](http://meme-suite.org/)
+   [FIMO](http://meme-suite.org/tools/fimo) application, which scores the match of transcription factor binding
+   motifs to sequences you submit.  The FIMO client runs on your computer, the FIMO service (application)
+   runs on <i>whovian</i>, and ISB linux server, within the firewall.
+   
  
  
