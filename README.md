@@ -1,10 +1,10 @@
 # MicroServices
-A collection of simple functions, written in Python and R, providing access to remote computation and remote data.
-The microservices architecture is persuasively described by [Martin Fowler](http://martinfowler.com/articles/microservices.html),
-claiming that software systems are most flexibly, robustly and adaptively created through composition,
-in which each of the component parts each perform a single, well-defined task.
+We offer simple functions, in Python and R, which provide programmatic access to remote computation and remote data.
+The microservices architecture is described by [Martin Fowler](http://martinfowler.com/articles/microservices.html).
+He argues that software systems are most flexibly, robustly and adaptively constructed via <i>composition</i>,
+in which each of the component parts performs a single, well-defined task.  
 
-Current contents include:
+Current services include:
 
  * [getDNAService](https://github.com/PriceLab/getDNAService): currently a lightweight wrapper around an
     established, public UCSC DAS server.  The reference sequence for the specified genome, and chromosomal location is returned,
@@ -21,7 +21,7 @@ Current contents include:
 These first two services are complementary:  the getDNAService provides the DNA sequence - typically short --
 which the fimoService requires.  Once the software is installed (see each respective package for language-specific instructions),
 these operations become possible, as demonstrated here with the loss of binding motifs due to a
-SNP [rs146894928](http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=146894928), chr1:172883225  C/T on forward strand.
+SNP [rs146894928](http://www.ncbi.nlm.nih.gov/projects/SNP/snp_ref.cgi?rs=146894928), `chr1:172883225 C/T` on forward strand.
 These coordinates are hg38.  (A programmatic "liftover" service would come in handy.)
 
 ```
@@ -33,10 +33,10 @@ seq.wt <- getSequenceByLoc(dnaClient, "chr1", start, end)
 seq.snp <- sprintf("%s%s%s", substr(seq.wt, 1, 5), "T", substr(seq.wt, 7, 11))
 ```
 
-We now have the wild-type and variant sequence.  Submit each to fimo.  Does this SNP affect likely TF binding?
+We now have the wild-type and variant sequence.  Submit each to fimo.  Does this SNP affect predicted TF binding?
 
 ```
 fimo <- FimoClient("whovian", 5558)
-print(requestMatch(fimo, list(wt=seq.wt)))    # an empty table
-print(requestMatch(fimo, list(wt=seq.snp)))   # four motifs reported
+print(requestMatch(fimo, list(wt=seq.wt)))     # an empty table
+print(requestMatch(fimo, list(mut=seq.snp)))   # four motifs reported
 ```
