@@ -34,9 +34,15 @@ seq.snp <- sprintf("%s%s%s", substr(seq.wt, 1, 5), "T", substr(seq.wt, 7, 11))
 ```
 
 We now have the wild-type and variant sequence.  Submit each to fimo.  Does this SNP affect predicted TF binding?
-
+Note that requestMatch <b><i>requires</i></b> that the sequences you give it be contained in an <b><i>R</i></b> list. 
+In the two calls shown below, the lists are named. If you pass in an unnamed list, names are automatically generated for you.
 ```
 fimo <- FimoClient("whovian", 5558)
 print(requestMatch(fimo, list(wt=seq.wt)))     # an empty table
 print(requestMatch(fimo, list(mut=seq.snp)))   # four motifs reported
 ```
+Note, also, that you can combine sequences into a single named list, and make just one call:
+
+````
+print(requestMatch(fimo, list(wt=seq.wt, mut=seq.snp)))   # still just four motifs reported
+````
